@@ -1,3 +1,1 @@
-$ bash hello.sh
-Hello dpappas!
-$
+echo "Hello dpappas!"
