@@ -1,6 +1,4 @@
 #! /bin/bash
 
 echo "start looking..."
-find . -type f -name 'a*' -print
-find . -type f -name '*z' -print
-find . -type f -name 'z*a' -print
+find . -type f \( -name 'a*' -o -name '*z' -o -name 'z*a!' \) -print | sort
