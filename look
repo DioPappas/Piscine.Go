@@ -1,0 +1,6 @@
+#! /bin/bash
+
+echo "start looking..."
+find . -type f -name 'a*' -print
+find . -type f -name '*z' -print
+find . -type f -name 'z*a' -print
