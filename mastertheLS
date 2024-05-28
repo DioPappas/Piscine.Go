@@ -1,3 +1,4 @@
 #! /bash/bin
 
 ls -p -A -t | grep -vE '/$|^\.+$' | tr '\n' ',' | sed 's/,$/\n/'
+clear
