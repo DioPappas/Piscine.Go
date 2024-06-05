@@ -17,14 +17,8 @@ func PrintNbrInOrder(n int) {
 		n /= 10
 	}
 
-	// Find the index of the first non-zero digit
-	start := 0
-	for start < 10 && digitCounts[start] == 0 {
-		start++
-	}
-
-	// Print digits in ascending order starting from the first non-zero digit
-	for i := start; i < 10; i++ {
+	// Print digits in ascending order
+	for i := 0; i < 10; i++ {
 		for j := 0; j < digitCounts[i]; j++ {
 			z01.PrintRune(rune(i) + '0')
 		}
