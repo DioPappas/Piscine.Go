@@ -13,8 +13,12 @@ func PrintNbrInOrder(n int) {
 	// Extract and print the digits one by one
 	for i := 0; i < numDigits; i++ {
 		smallestDigit := findSmallestDigit(n)
-		z01.PrintRune(rune(smallestDigit) + '0') // Print the digit
-		n = removeDigit(n, smallestDigit)        // Remove the printed digit from the integer
+		if smallestDigit == 0 {
+			z01.PrintRune('0') // Print the digit 0
+		} else {
+			z01.PrintRune(rune(smallestDigit) + '0') // Print the digit
+		}
+		n = removeDigit(n, smallestDigit) // Remove the printed digit from the integer
 	}
 
 	// Print a newline character at the end
