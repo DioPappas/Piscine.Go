@@ -13,7 +13,7 @@ func PrintNbrInOrder(n int) {
 	// Extract and print the digits one by one
 	for i := 0; i < numDigits; i++ {
 		smallestDigit := findSmallestDigit(n)
-		if smallestDigit == 0 {
+		if smallestDigit == 0 && n != 0 {
 			z01.PrintRune('0') // Print the digit 0
 		} else {
 			z01.PrintRune(rune(smallestDigit) + '0') // Print the digit
@@ -37,7 +37,7 @@ func countDigits(n int) int {
 
 // Function to find the smallest digit in an integer
 func findSmallestDigit(n int) int {
-	smallest := 9
+	smallest := 10 // Initialize with a value greater than any digit
 	for n != 0 {
 		digit := n % 10
 		if digit < smallest {
