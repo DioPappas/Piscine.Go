@@ -5,25 +5,23 @@ import (
 )
 
 func PrintNbrInOrder(n int) {
-	if n < 0 {
-		return // do nothing for negative numbers
+	if n == 0 {
+		z01.PrintRune('0')
+		return
 	}
-
-	// Count occurrences of each digit in the input number
-	digitCounts := [10]int{}
+	var digits []int
 	for n > 0 {
-		digit := n % 10
-		digitCounts[digit]++
+		digits = append(digits, n%10)
 		n /= 10
 	}
-
-	// Print digits in ascending order
-	for i := 0; i < 10; i++ {
-		for j := 0; j < digitCounts[i]; j++ {
-			z01.PrintRune(rune(i) + '0')
+	for i := 0; i < len(digits)-1; i++ {
+		for j := 0; j < len(digits)-i-1; j++ {
+			if digits[j] < digits[j+1] {
+				digits[j], digits[j+1] = digits[j+1], digits[j]
+			}
 		}
 	}
-
-	// Print a newline character at the end
-	z01.PrintRune('\n')
+	for _, digit := range digits {
+		z01.PrintRune(rune(digit + '0'))
+	}
 }
