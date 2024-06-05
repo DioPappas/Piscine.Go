@@ -1,25 +1,20 @@
 package piscine
 
-func isDigit(r rune) bool {
-	return r >= '0' && r <= '9'
-}
-
 func TrimAtoi(s string) int {
+	num := 0
 	sign := 1
-	result := 0
-	found := false
+	foundNum := false
 
-	for _, char := range s {
-		if char == '-' && !found {
+	for _, let := range s {
+		if let >= '0' && let <= '9' {
+			if !foundNum {
+				foundNum = true
+			}
+			num = num*10 + int(let-'0')
+		} else if let == '-' && !foundNum {
 			sign = -1
-			found = true
-		} else if isDigit(char) {
-			found = true
-			result = result*10 + int(char-'0')
-		} else if found {
-			break
 		}
 	}
 
-	return result * sign
+	return num * sign
 }
