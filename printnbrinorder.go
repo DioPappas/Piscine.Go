@@ -16,7 +16,7 @@ func PrintNbrInOrder(n int) {
 	}
 	for i := 0; i < len(digits)-1; i++ {
 		for j := 0; j < len(digits)-i-1; j++ {
-			if digits[j] < digits[j+1] {
+			if digits[j] > digits[j+1] {
 				digits[j], digits[j+1] = digits[j+1], digits[j]
 			}
 		}
