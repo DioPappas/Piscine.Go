@@ -1,13 +1,23 @@
 package main
 
 import (
-	"fmt"
 	"os"
+
+	"github.com/01-edu/z01"
 )
 
 func main() {
-	args := os.Args[1:]
-	for _, res := range args {
-		fmt.Println(res)
+	params := os.Args
+	length := 0
+
+	for index := range params {
+		length = index
+	}
+
+	for i := 1; i <= length; i++ {
+		for _, w := range params[i] {
+			z01.PrintRune(w)
+		}
+		z01.PrintRune('\n')
 	}
 }
