@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-	"sort"
 
 	"github.com/01-edu/z01"
 )
@@ -61,7 +60,15 @@ func printUsage() {
 }
 
 func orderString(s string) string {
+	// Bubble sort implementation
 	runes := []rune(s)
-	sort.Slice(runes, func(i, j int) bool { return runes[i] < runes[j] })
+	n := len(runes)
+	for i := 0; i < n; i++ {
+		for j := 0; j < n-i-1; j++ {
+			if runes[j] > runes[j+1] {
+				runes[j], runes[j+1] = runes[j+1], runes[j]
+			}
+		}
+	}
 	return string(runes)
 }
