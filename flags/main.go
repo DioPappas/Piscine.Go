@@ -38,7 +38,9 @@ func main() {
 	}
 
 	// Insert the string if provided
-	text += insert
+	if insert != "" {
+		text = insert + text
+	}
 
 	// Order the string if requested
 	if order {
