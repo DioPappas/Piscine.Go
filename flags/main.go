@@ -38,7 +38,7 @@ func main() {
 	}
 
 	// Concatenate the insertion string if provided and the insert flag is present
-	if insert != "" && order == false {
+	if insert != "" && !order {
 		text += insert
 	}
 
@@ -49,7 +49,7 @@ func main() {
 
 	// Concatenate the insertion string if provided and the insert flag is not present
 	if insert != "" && order {
-		text += insert
+		text = insert + text
 	}
 
 	// Print the resulting string
