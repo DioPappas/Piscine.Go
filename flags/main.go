@@ -37,13 +37,21 @@ func main() {
 		}
 	}
 
-	// Insert the string if provided
-	if insert != "" {
-		text = text + insert
+	// Insert the string if provided and the insert flag is present
+	if insert != "" && len(insert) > 0 {
+		if order {
+			// If the order flag is present, insert the string before ordering
+			text = insert + text
+			text = orderString(text)
+		} else {
+			// If the order flag is not present, append the string without ordering
+			text += insert
+		}
 	}
 
 	// Order the string if requested
-	if order {
+	if order && insert == "" {
+		// If no insert string is provided, order the original argument string
 		text = orderString(text)
 	}
 
