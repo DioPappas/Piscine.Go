@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/01-edu/z01"
 )
@@ -37,21 +38,13 @@ func main() {
 		}
 	}
 
-	// Insert the string if provided and the insert flag is present
-	if insert != "" && len(insert) > 0 {
-		if order {
-			// If the order flag is present, insert the string before ordering
-			text = insert + text
-			text = orderString(text)
-		} else {
-			// If the order flag is not present, append the string without ordering
-			text += insert
-		}
+	// Concatenate the insertion string if provided
+	if insert != "" {
+		text += insert
 	}
 
 	// Order the string if requested
-	if order && insert == "" {
-		// If no insert string is provided, order the original argument string
+	if order {
 		text = orderString(text)
 	}
 
@@ -70,15 +63,16 @@ func printUsage() {
 }
 
 func orderString(s string) string {
-	// Bubble sort implementation
-	runes := []rune(s)
-	n := len(runes)
-	for i := 0; i < n; i++ {
-		for j := 0; j < n-i-1; j++ {
-			if runes[j] > runes[j+1] {
-				runes[j], runes[j+1] = runes[j+1], runes[j]
+	// Split the string into individual characters
+	chars := strings.Split(s, "")
+	// Sort the characters
+	for i := 0; i < len(chars); i++ {
+		for j := i + 1; j < len(chars); j++ {
+			if chars[i] > chars[j] {
+				chars[i], chars[j] = chars[j], chars[i]
 			}
 		}
 	}
-	return string(runes)
+	// Join the characters back into a string
+	return strings.Join(chars, "")
 }
