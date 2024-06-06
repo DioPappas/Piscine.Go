@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-	"strings"
 
 	"github.com/01-edu/z01"
 )
@@ -63,16 +62,18 @@ func printUsage() {
 }
 
 func orderString(s string) string {
-	// Split the string into individual characters
-	chars := strings.Split(s, "")
-	// Sort the characters
-	for i := 0; i < len(chars); i++ {
-		for j := i + 1; j < len(chars); j++ {
-			if chars[i] > chars[j] {
-				chars[i], chars[j] = chars[j], chars[i]
+	// Convert the string to a slice of runes
+	runes := []rune(s)
+
+	// Sort the runes
+	for i := 0; i < len(runes); i++ {
+		for j := i + 1; j < len(runes); j++ {
+			if runes[i] > runes[j] {
+				runes[i], runes[j] = runes[j], runes[i]
 			}
 		}
 	}
-	// Join the characters back into a string
-	return strings.Join(chars, "")
+
+	// Convert the sorted runes back to a string
+	return string(runes)
 }
