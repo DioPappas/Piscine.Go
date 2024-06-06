@@ -33,7 +33,7 @@ func main() {
 		case "--order", "-o":
 			order = true
 		default:
-			text += args[i] + " "
+			text += args[i]
 		}
 	}
 
