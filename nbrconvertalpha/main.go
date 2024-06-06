@@ -2,7 +2,6 @@ package main
 
 import (
 	"os"
-	"strconv"
 
 	"github.com/01-edu/z01"
 )
@@ -21,8 +20,8 @@ func main() {
 	}
 
 	for _, arg := range args {
-		num, err := strconv.Atoi(arg)
-		if err != nil || num < 1 || num > 26 {
+		num, valid := myAtoi(arg)
+		if !valid || num < 1 || num > 26 {
 			z01.PrintRune(' ')
 		} else {
 			if upper {
@@ -33,4 +32,15 @@ func main() {
 		}
 	}
 	z01.PrintRune('\n')
+}
+
+func myAtoi(s string) (int, bool) {
+	num := 0
+	for _, c := range s {
+		if c < '0' || c > '9' {
+			return 0, false
+		}
+		num = num*10 + int(c-'0')
+	}
+	return num, true
 }
