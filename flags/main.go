@@ -37,14 +37,19 @@ func main() {
 		}
 	}
 
-	// Concatenate the insertion string if provided
-	if insert != "" {
+	// Concatenate the insertion string if provided and the insert flag is present
+	if insert != "" && order == false {
 		text += insert
 	}
 
 	// Order the string if requested
 	if order {
 		text = orderString(text)
+	}
+
+	// Concatenate the insertion string if provided and the insert flag is not present
+	if insert != "" && order {
+		text += insert
 	}
 
 	// Print the resulting string
