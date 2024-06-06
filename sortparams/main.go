@@ -1,16 +1,25 @@
 package main
 
 import (
+	"os"
+	"sort"
+
 	"github.com/01-edu/z01"
 )
 
 func main() {
-	// Define the runes you want to print
-	runes := []rune{'1', '2', '3', '4', 'A', 'C', 'a', 'b'}
+	// os.Args contains the command-line arguments passed to the program
+	args := os.Args[1:] // Skip the first argument which is the program name
 
-	// Loop through each rune and print it followed by a newline
-	for _, r := range runes {
-		z01.PrintRune(r)
+	// Sort the arguments in alphabetical order
+	sort.Strings(args)
+
+	// Loop through each sorted argument
+	for _, arg := range args {
+		// Loop through each character in the argument
+		for _, r := range arg {
+			z01.PrintRune(r)
+		}
 		z01.PrintRune('\n')
 	}
 }
