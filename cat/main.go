@@ -1,22 +1,29 @@
 package main
 
 import (
-	"io/ioutil"
+	"io"
 	"os"
 )
 
 func main() {
 	if len(os.Args) < 2 {
-		os.Stderr.WriteString("ERROR: Usage: go run . <filename>\n")
+		os.Stderr.WriteString("ERROR: Usage: go run . <filename1> <filename2> ...\n")
 		os.Exit(1)
 	}
 
-	filename := os.Args[1]
-	content, err := ioutil.ReadFile(filename)
-	if err != nil {
-		os.Stderr.WriteString("ERROR: " + err.Error() + "\n")
-		os.Exit(1)
-	}
+	for i := 1; i < len(os.Args); i++ {
+		filename := os.Args[i]
+		file, err := os.Open(filename)
+		if err != nil {
+			os.Stderr.WriteString("ERROR: " + err.Error() + "\n")
+			os.Exit(1)
+		}
+		defer file.Close()
 
-	os.Stdout.Write(content)
+		_, err = io.Copy(os.Stdout, file)
+		if err != nil {
+			os.Stderr.WriteString("ERROR: " + err.Error() + "\n")
+			os.Exit(1)
+		}
+	}
 }
