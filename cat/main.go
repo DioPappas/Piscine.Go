@@ -25,6 +25,7 @@ func main() {
 		file, err := os.Open(arg)
 		if err != nil {
 			printError(err.Error() + "\n")
+			os.Exit(1) // Exit with non-zero status on error
 			continue
 		}
 		cat(file)
@@ -36,6 +37,7 @@ func cat(reader io.Reader) {
 	content, err := io.ReadAll(reader)
 	if err != nil {
 		printError(err.Error() + "\n")
+		os.Exit(1) // Exit with non-zero status on error
 		return
 	}
 	for _, ch := range content {
