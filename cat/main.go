@@ -1,29 +1,30 @@
 package main
 
 import (
-	"io"
+	"fmt"
+	"io/ioutil"
 	"os"
 )
 
 func main() {
-	if len(os.Args) < 2 {
-		// If no filenames are provided, simply exit without error.
-		return
-	}
-
-	for i := 1; i < len(os.Args); i++ {
-		filename := os.Args[i]
-		file, err := os.Open(filename)
-		if err != nil {
-			os.Stderr.WriteString("ERROR: " + err.Error() + "\n")
-			os.Exit(1)
-		}
-		defer file.Close()
-
-		_, err = io.Copy(os.Stdout, file)
-		if err != nil {
-			os.Stderr.WriteString("ERROR: " + err.Error() + "\n")
-			os.Exit(1)
+	args := os.Args[1:]
+	if 0 == len(args) {
+		fmt.Print()
+	} else {
+		for _, s := range os.Args[1:] {
+			file, err := os.Open(s)
+			if err != nil {
+				fmt.Println(err.Error())
+				break
+			} else {
+				data, err := ioutil.ReadAll(file)
+				if err != nil {
+					fmt.Println(err.Error())
+					break
+				} else {
+					fmt.Printf("%s", data)
+				}
+			}
 		}
 	}
 }
