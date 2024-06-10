@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 )
 
@@ -19,7 +18,7 @@ func main() {
 
 	fileName := args[0]
 
-	content, err := ioutil.ReadFile(fileName)
+	content, err := os.ReadFile(fileName)
 	if err != nil {
 		fmt.Printf("Error reading file: %v\n", err)
 		return
