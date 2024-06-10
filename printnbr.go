@@ -5,7 +5,7 @@ import (
 )
 
 // PrintNbr prints an int passed as a parameter
-func PrintNbr(n int64) {
+func PrintNbr(n int) {
 	if n == 0 {
 		z01.PrintRune('0')
 		return
@@ -20,7 +20,7 @@ func PrintNbr(n int64) {
 			n = -n
 		}
 	}
-	printPositive(n)
+	printPositive(int64(n))
 }
 
 func printPositive(n int64) {
