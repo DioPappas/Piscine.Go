@@ -7,8 +7,8 @@ import (
 
 func main() {
 	if len(os.Args) < 2 {
-		os.Stderr.WriteString("ERROR: Usage: go run . <filename1> <filename2> ...\n")
-		os.Exit(1)
+		// If no filenames are provided, simply exit without error.
+		return
 	}
 
 	for i := 1; i < len(os.Args); i++ {
