@@ -1,6 +1,7 @@
 package main
 
 import (
+	"io/ioutil"
 	"os"
 )
 
@@ -11,9 +12,11 @@ func main() {
 	}
 
 	filename := os.Args[1]
-	_, err := os.Open(filename)
+	content, err := ioutil.ReadFile(filename)
 	if err != nil {
 		os.Stderr.WriteString("ERROR: " + err.Error() + "\n")
 		os.Exit(1)
 	}
+
+	os.Stdout.Write(content)
 }
