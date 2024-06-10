@@ -6,14 +6,14 @@ import (
 
 func main() {
 	if len(os.Args) < 2 {
-		println("Usage: go run . <filename>")
-		return
+		os.Stderr.WriteString("ERROR: Usage: go run . <filename>\n")
+		os.Exit(1)
 	}
 
 	filename := os.Args[1]
 	_, err := os.Open(filename)
 	if err != nil {
-		println("ERROR:", err)
+		os.Stderr.WriteString("ERROR: " + err.Error() + "\n")
 		os.Exit(1)
 	}
 }
