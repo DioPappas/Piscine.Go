@@ -1,29 +1,29 @@
 package main
 
 import (
-	"fmt"
 	"io/ioutil"
 	"os"
 )
 
 func main() {
 	args := os.Args[1:]
-	if 0 == len(args) {
-		fmt.Print()
+	if len(args) == 0 {
+		os.Exit(0)
 	} else {
-		for _, s := range os.Args[1:] {
+		for _, s := range args {
 			file, err := os.Open(s)
 			if err != nil {
-				fmt.Println(err.Error())
-				break
+				os.Stderr.WriteString(err.Error() + "\n")
+				os.Exit(1)
 			} else {
 				data, err := ioutil.ReadAll(file)
 				if err != nil {
-					fmt.Println(err.Error())
-					break
+					os.Stderr.WriteString(err.Error() + "\n")
+					os.Exit(1)
 				} else {
-					fmt.Printf("%s", data)
+					os.Stdout.Write(data)
 				}
+				file.Close()
 			}
 		}
 	}
