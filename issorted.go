@@ -12,16 +12,3 @@ func IsSorted(f func(a, b int) int, a []int) bool {
 	}
 	return true
 }
-
-// Example comparison function: Sorts the integers in ascending order.
-func isSortedByAscending(a, b int) int {
-	if a < b {
-		return -1
-	} else if a == b {
-		return 0
-	}
-	return 1
-}
-
-// Example usage:
-// isSorted := IsSorted(isSortedByAscending, []int{3, 5, 7, 9, 11})
