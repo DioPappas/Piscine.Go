@@ -14,7 +14,7 @@ func validateOperator(test string) bool {
 	return false
 }
 
-func atoi(s string) int {
+func atoi(s string) (int, bool) {
 	n := 0
 	sign := 1
 	for i, c := range s {
@@ -25,11 +25,11 @@ func atoi(s string) int {
 			continue
 		}
 		if c < '0' || c > '9' {
-			return 0
+			return 0, false // Return error if not a valid number
 		}
 		n = n*10 + int(c-'0')
 	}
-	return n * sign
+	return n * sign, true
 }
 
 func itoa(n int) string {
@@ -64,8 +64,12 @@ func main() {
 		return
 	}
 
-	premier := atoi(args[0])
-	second := atoi(args[2])
+	premier, ok1 := atoi(args[0])
+	second, ok2 := atoi(args[2])
+
+	if !ok1 || !ok2 {
+		return // Exit if conversion fails
+	}
 
 	switch args[1] {
 	case "+":
