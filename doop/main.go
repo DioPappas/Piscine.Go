@@ -51,6 +51,9 @@ func subtract(a, b string) string {
 	if b[0] == '-' {
 		return add(a, b[1:])
 	}
+	if a[0] == '-' {
+		return "-" + add(a[1:], b)
+	}
 	var result []byte
 	borrow := 0
 	i := len(a) - 1
