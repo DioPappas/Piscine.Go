@@ -14,81 +14,136 @@ func validateOperator(test string) bool {
 	return false
 }
 
-func atoi(s string) (int, bool) {
-	n := 0
-	sign := 1
-	for i, c := range s {
-		if i == 0 && (c == '-' || c == '+') {
-			if c == '-' {
-				sign = -1
-			}
-			continue
+func add(a, b string) string {
+	var result []byte
+	carry := 0
+	i := len(a) - 1
+	j := len(b) - 1
+
+	for i >= 0 || j >= 0 || carry != 0 {
+		sum := carry
+		if i >= 0 {
+			sum += int(a[i] - '0')
+			i--
 		}
-		if c < '0' || c > '9' {
-			return 0, false // Return error if not a valid number
+		if j >= 0 {
+			sum += int(b[j] - '0')
+			j--
 		}
-		n = n*10 + int(c-'0')
+		carry = sum / 10
+		sum %= 10
+		result = append([]byte{byte(sum + '0')}, result...)
 	}
-	return n * sign, true
+
+	return string(result)
 }
 
-func itoa(n int) string {
-	if n == 0 {
+func subtract(a, b string) string {
+	var result []byte
+	borrow := 0
+	i := len(a) - 1
+	j := len(b) - 1
+
+	for i >= 0 {
+		diff := int(a[i] - '0' - byte(borrow))
+		borrow = 0
+		if j >= 0 {
+			diff -= int(b[j] - '0')
+			j--
+		}
+		if diff < 0 {
+			diff += 10
+			borrow = 1
+		}
+		result = append([]byte{byte(diff + '0')}, result...)
+		i--
+	}
+
+	return string(result)
+}
+
+func multiply(a, b string) string {
+	if a == "0" || b == "0" {
 		return "0"
 	}
-	sign := ""
-	if n < 0 {
-		sign = "-"
-		n = -n
-	}
-	s := ""
-	for n > 0 {
-		s = string(n%10+'0') + s
-		n /= 10
-	}
-	return sign + s
-}
 
-func writeToStdout(str string) {
-	b := []byte(str)
-	_, _ = os.Stdout.Write(b)
-}
+	var result []byte
+	m := len(a)
+	n := len(b)
+	products := make([]int, m+n)
 
-func main() {
-	args := os.Args[1:]
-	if len(args) != 3 {
-		return
-	}
-
-	if !validateOperator(args[1]) {
-		return
-	}
-
-	premier, ok1 := atoi(args[0])
-	second, ok2 := atoi(args[2])
-
-	if !ok1 || !ok2 {
-		return // Exit if conversion fails
-	}
-
-	switch args[1] {
-	case "+":
-		writeToStdout(itoa(premier+second) + "\n")
-	case "-":
-		writeToStdout(itoa(premier-second) + "\n")
-	case "*":
-		writeToStdout(itoa(premier*second) + "\n")
-	case "/":
-		if second != 0 {
-			writeToStdout(itoa(premier/second) + "\n")
-		} else {
-			writeToStdout("No division by 0\n")
-		}
-	case "%":
-		if second != 0 {
-			writeToStdout(itoa(premier%second) + "\n")
-		} else {
-			writeToStdout("No modulo by 0\n")
+	for i := m - 1; i >= 0; i-- {
+		for j := n - 1; j >= 0; j-- {
+			digitA := int(a[i] - '0')
+			digitB := int(b[j] - '0')
+			products[i+j+1] += digitA * digitB
 		}
 	}
+
+	carry := 0
+	for i := len(products) - 1; i >= 0; i-- {
+		sum := products[i] + carry
+		carry = sum / 10
+		sum %= 10
+		result = append([]byte{byte(sum + '0')}, result...)
+	}
+
+	if result[0] == '0' {
+		result = result[1:]
+	}
+
+	return string(result)
 }
+
+func divide(a, b string) string {
+	quotient := ""
+	remainder := a
+
+	for len(remainder) >= len(b) {
+		num := b
+		div := 0
+		for isLargerOrEqual(remainder, num) {
+			remainder = subtract(remainder, num)
+			div++
+		}
+		quotient += string(div + '0')
+	}
+
+	if quotient == "" {
+		return "0"
+	}
+
+	return quotient
+}
+
+func modulo(a, b string) string {
+	remainder := a
+
+	for len(remainder) >= len(b) {
+		num := b
+		for isLargerOrEqual(remainder, num) {
+			remainder = subtract(remainder, num)
+		}
+	}
+
+	if remainder == "" {
+		return "0"
+	}
+
+	return remainder
+}
+
+func isLargerOrEqual(a, b string) bool {
+	if len(a) > len(b) {
+		return true
+	} else if len(a) < len(b) {
+		return false
+	}
+
+	for i := 0; i < len(a); i++ {
+		if a[i] > b[i] {
+			return true
+		} else if a[i] < b[i] {
+			return false
+		}
+	
