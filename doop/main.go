@@ -39,6 +39,9 @@ func add(a, b string) string {
 }
 
 func subtract(a, b string) string {
+	if b[0] == '-' {
+		return add(a, b[1:])
+	}
 	var result []byte
 	borrow := 0
 	i := len(a) - 1
@@ -183,11 +186,10 @@ func main() {
 		}
 	case "%":
 		if args[2] == "0" {
-			result = "No modulo by 0"
+			result = "No modulo 0"
 		} else {
 			result = modulo(args[0], args[2])
 		}
 	}
-
 	os.Stdout.Write([]byte(result + "\n"))
 }
