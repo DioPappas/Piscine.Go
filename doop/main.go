@@ -146,4 +146,43 @@ func isLargerOrEqual(a, b string) bool {
 		} else if a[i] < b[i] {
 			return false
 		}
-	
+	}
+
+	return true
+}
+
+func main() {
+	args := os.Args[1:]
+	if len(args) != 3 {
+		return
+	}
+
+	if !validateOperator(args[1]) {
+		return
+	}
+
+	var result string
+
+	switch args[1] {
+	case "+":
+		result = add(args[0], args[2])
+	case "-":
+		result = subtract(args[0], args[2])
+	case "*":
+		result = multiply(args[0], args[2])
+	case "/":
+		if args[2] == "0" {
+			result = "No division by 0"
+		} else {
+			result = divide(args[0], args[2])
+		}
+	case "%":
+		if args[2] == "0" {
+			result = "No modulo by 0"
+		} else {
+			result = modulo(args[0], args[2])
+		}
+	}
+
+	os.Stdout.Write([]byte(result + "\n"))
+}
