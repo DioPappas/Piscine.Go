@@ -2,8 +2,6 @@ package main
 
 import (
 	"os"
-
-	"github.com/01-edu/z01"
 )
 
 func validateOperator(test string) bool {
@@ -34,6 +32,28 @@ func atoi(s string) int {
 	return n * sign
 }
 
+func itoa(n int) string {
+	if n == 0 {
+		return "0"
+	}
+	sign := ""
+	if n < 0 {
+		sign = "-"
+		n = -n
+	}
+	s := ""
+	for n > 0 {
+		s = string(n%10+'0') + s
+		n /= 10
+	}
+	return sign + s
+}
+
+func writeToStdout(str string) {
+	b := []byte(str)
+	_, _ = os.Stdout.Write(b)
+}
+
 func main() {
 	args := os.Args[1:]
 	if len(args) != 3 {
@@ -49,31 +69,22 @@ func main() {
 
 	switch args[1] {
 	case "+":
-		z01.PrintRune(rune(premier + second))
-		z01.PrintRune('\n')
+		writeToStdout(itoa(premier+second) + "\n")
 	case "-":
-		z01.PrintRune(rune(premier - second))
-		z01.PrintRune('\n')
+		writeToStdout(itoa(premier-second) + "\n")
 	case "*":
-		z01.PrintRune(rune(premier * second))
-		z01.PrintRune('\n')
+		writeToStdout(itoa(premier*second) + "\n")
 	case "/":
 		if second != 0 {
-			z01.PrintRune(rune(premier / second))
-			z01.PrintRune('\n')
+			writeToStdout(itoa(premier/second) + "\n")
 		} else {
-			for _, c := range "No division by 0\n" {
-				z01.PrintRune(c)
-			}
+			writeToStdout("No division by 0\n")
 		}
 	case "%":
 		if second != 0 {
-			z01.PrintRune(rune(premier % second))
-			z01.PrintRune('\n')
+			writeToStdout(itoa(premier%second) + "\n")
 		} else {
-			for _, c := range "No modulo by 0\n" {
-				z01.PrintRune(c)
-			}
+			writeToStdout("No modulo by 0\n")
 		}
 	}
 }
