@@ -14,6 +14,15 @@ func validateOperator(test string) bool {
 	return false
 }
 
+func isNumeric(str string) bool {
+	for _, char := range str {
+		if char < '0' || char > '9' {
+			return false
+		}
+	}
+	return true
+}
+
 func add(a, b string) string {
 	var result []byte
 	carry := 0
@@ -165,7 +174,7 @@ func main() {
 		return
 	}
 
-	if !validateOperator(args[1]) {
+	if !validateOperator(args[1]) || !isNumeric(args[0]) || !isNumeric(args[2]) {
 		return
 	}
 
@@ -186,10 +195,11 @@ func main() {
 		}
 	case "%":
 		if args[2] == "0" {
-			result = "No modulo 0"
+			result = "No modulo by 0"
 		} else {
 			result = modulo(args[0], args[2])
 		}
 	}
+
 	os.Stdout.Write([]byte(result + "\n"))
 }
