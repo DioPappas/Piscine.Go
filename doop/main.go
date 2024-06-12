@@ -59,6 +59,11 @@ func subtract(a, b string) string {
 		i--
 	}
 
+	// Trim leading zeros
+	for len(result) > 1 && result[0] == '0' {
+		result = result[1:]
+	}
+
 	return string(result)
 }
 
