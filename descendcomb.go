@@ -11,7 +11,6 @@ func DescendComb() {
 						z01.PrintRune(i)
 						z01.PrintRune(j)
 						z01.PrintRune(' ')
-
 						z01.PrintRune(k)
 						z01.PrintRune(l)
 						if !(i == '0' && j == '1' && k == '0' && l == '0') {
