@@ -4,7 +4,7 @@ import "github.com/01-edu/z01"
 
 func DescendComb() {
 	for i := '9'; i >= '0'; i-- {
-		for j := '9'; j >= '1'; j-- {
+		for j := '9'; j >= '0'; j-- {
 			for k := '9'; k >= '0'; k-- {
 				for l := '9'; l >= '0'; l-- {
 					if (i > k) || (i == k && j >= l) {
