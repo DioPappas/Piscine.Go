@@ -1,12 +1,16 @@
 package piscine
 
 func Unmatch(a []int) int {
-	result := 0
-
-	// XOR all elements in the slice
-	for _, num := range a {
-		result ^= num
+	for i := 0; i < len(a); i++ {
+		count := 0
+		for j := 0; j < len(a); j++ {
+			if a[i] == a[j] {
+				count++
+			}
+		}
+		if count%2 != 0 {
+			return a[i]
+		}
 	}
-
-	return result
+	return -1
 }
