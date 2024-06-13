@@ -1,7 +1,7 @@
 package piscine
 
 func StringToIntSlice(str string) []int {
-	// Initialize an empty slice to store the ASCII values
+	// Explicitly initialize an empty slice to store the ASCII values
 	intSlice := []int{}
 
 	// Iterate over each character in the string
