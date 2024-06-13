@@ -7,7 +7,7 @@ func DescendComb() {
 		for j := '9'; j >= '1'; j-- {
 			for k := '9'; k >= '0'; k-- {
 				for l := '9'; l >= '0'; l-- {
-					if (l < j) || (l == j && k < i) {
+					if (i > k) || (i == k && j >= l) {
 						z01.PrintRune(i)
 						z01.PrintRune(j)
 						z01.PrintRune(' ')
@@ -24,5 +24,4 @@ func DescendComb() {
 			}
 		}
 	}
-	z01.PrintRune('\n')
 }
