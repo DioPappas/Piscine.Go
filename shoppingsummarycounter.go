@@ -7,23 +7,26 @@ func ShoppingSummaryCounter(str string) map[string]int {
 
 	// Initialize variables for processing the string
 	currentItem := ""
-	lastChar := ' ' // Initialize lastChar as a space to handle the start of the string
+	lastWasSpace := true // Start with true to handle spaces at the beginning
 
 	// Iterate through each character in the string
 	for _, char := range str {
-		if char == ' ' && lastChar != ' ' {
-			// If we encounter a space and currentItem is not empty, count the item
-			if currentItem != "" {
-				itemCount[currentItem]++
+		if char == ' ' {
+			if !lastWasSpace {
+				// If currentItem is not empty, count it as an item
+				if currentItem != "" {
+					itemCount[currentItem]++
+				}
 				currentItem = ""
 			}
-		} else if char != ' ' {
-			// Append the character to the current item
+			// Mark that the last character was a space
+			lastWasSpace = true
+		} else {
+			// Append the character to currentItem
 			currentItem += string(char)
+			// Mark that the last character was not a space
+			lastWasSpace = false
 		}
-
-		// Update lastChar to the current character
-		lastChar = char
 	}
 
 	// Count the last item if there is any
@@ -31,11 +34,10 @@ func ShoppingSummaryCounter(str string) map[string]int {
 		itemCount[currentItem]++
 	}
 
-	// Count consecutive spaces as empty strings
-	if lastChar == ' ' {
+	// Count consecutive spaces as empty string
+	if lastWasSpace {
 		itemCount[""]++
 	}
 
-	// Return the map with the counts
 	return itemCount
 }
