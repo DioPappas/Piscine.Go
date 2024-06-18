@@ -1,6 +1,6 @@
 package piscine
 
-func ListReverse(l *List) {
+func ListReverse1(l *List) {
 	current := l.Head
 	var prev *NodeL
 
