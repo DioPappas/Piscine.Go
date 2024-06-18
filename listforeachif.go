@@ -1,22 +1,7 @@
 package piscine
 
-type NodeL2 struct {
-	Data interface{}
-	Next *NodeL
-}
-
-type List2 struct {
-	Head *NodeL
-}
-
-func IsAlNode(node *NodeL) bool {
-	// Implement the logic for IsAlNode if required.
-	// Assuming it returns true for some condition on the node.
-	return true // Placeholder implementation
-}
-
-func IsPositive_node(node *NodeL) bool {
-	switch v := node.Data.(type) {
+func IsPositive1(node interface{}) bool {
+	switch v := node.(type) {
 	case int:
 		return v > 0
 	case float32:
@@ -31,8 +16,8 @@ func IsPositive_node(node *NodeL) bool {
 	return false
 }
 
-func IsNegative_node(node *NodeL) bool {
-	switch v := node.Data.(type) {
+func IsNegative1(node interface{}) bool {
+	switch v := node.(type) {
 	case int:
 		return v < 0
 	case float32:
@@ -47,8 +32,8 @@ func IsNegative_node(node *NodeL) bool {
 	return false
 }
 
-func IsNumeric_node(node *NodeL) bool {
-	switch node.Data.(type) {
+func IsNumeric1(node interface{}) bool {
+	switch node.(type) {
 	case int, float32, float64, byte:
 		return true
 	case string, rune:
@@ -57,12 +42,23 @@ func IsNumeric_node(node *NodeL) bool {
 	return false
 }
 
-func ListForEachIf(l *List, f func(*NodeL), comp func(*NodeL) bool) {
-	it := l.Head
-	for it != nil {
-		if comp(it) {
-			f(it)
+func ListForEachIf(list []interface{}, f func(interface{}) interface{}, comp func(interface{}) bool) []interface{} {
+	for i, node := range list {
+		if comp(node) {
+			list[i] = f(node)
 		}
-		it = it.Next
 	}
+	return list
+}
+
+func stringToOne(node interface{}) interface{} {
+	if _, ok := node.(string); ok {
+		return 1
+	}
+	return node
+}
+
+func isString(node interface{}) bool {
+	_, ok := node.(string)
+	return ok
 }
