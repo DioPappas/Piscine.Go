@@ -1,9 +1,30 @@
 package piscine
 
+type NodeL2 struct {
+	Data interface{}
+	Next *NodeL
+}
+
+type List2 struct {
+	Head *NodeL
+}
+
+func IsAlNode(node *NodeL) bool {
+	// Implement the logic for IsAlNode if required.
+	// Assuming it returns true for some condition on the node.
+	return true // Placeholder implementation
+}
+
 func IsPositive_node(node *NodeL) bool {
-	switch node.Data.(type) {
-	case int, float32, float64, byte:
-		return node.Data.(int) > 0
+	switch v := node.Data.(type) {
+	case int:
+		return v > 0
+	case float32:
+		return v > 0
+	case float64:
+		return v > 0
+	case byte:
+		return v > 0
 	case string, rune:
 		return false
 	}
@@ -11,9 +32,15 @@ func IsPositive_node(node *NodeL) bool {
 }
 
 func IsNegative_node(node *NodeL) bool {
-	switch node.Data.(type) {
-	case int, float32, float64, byte:
-		return node.Data.(int) > 0
+	switch v := node.Data.(type) {
+	case int:
+		return v < 0
+	case float32:
+		return v < 0
+	case float64:
+		return v < 0
+	case byte:
+		return false
 	case string, rune:
 		return false
 	}
