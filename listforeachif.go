@@ -1,64 +1,27 @@
 package piscine
 
-func IsPositive1(node interface{}) bool {
-	switch v := node.(type) {
-	case int:
-		return v > 0
-	case float32:
-		return v > 0
-	case float64:
-		return v > 0
-	case byte:
-		return v > 0
-	case string, rune:
-		return false
-	}
-	return false
-}
-
-func IsNegative1(node interface{}) bool {
-	switch v := node.(type) {
-	case int:
-		return v < 0
-	case float32:
-		return v < 0
-	case float64:
-		return v < 0
-	case byte:
-		return false
-	case string, rune:
-		return false
-	}
-	return false
-}
-
-func IsNumeric1(node interface{}) bool {
-	switch node.(type) {
+func IsPositiveNode(node *NodeL) bool {
+	switch node.Data.(type) {
 	case int, float32, float64, byte:
-		return true
-	case string, rune:
+		return node.Data.(int) > 0
+	default:
 		return false
 	}
-	return false
 }
 
-func ListForEachIf(list []interface{}, f func(interface{}) interface{}, comp func(interface{}) bool) []interface{} {
-	for i, node := range list {
-		if comp(node) {
-			list[i] = f(node)
+func IsAlNode(node *NodeL) bool {
+	switch node.Data.(type) {
+	case int, float32, float64, byte:
+		return false
+	default:
+		return true
+	}
+}
+
+func ListForEachIf(l *List, f func(*NodeL), cond func(*NodeL) bool) {
+	for node := l.Head; node != nil; node = node.Next {
+		if cond(node) {
+			f(node)
 		}
 	}
-	return list
-}
-
-func stringToOne(node interface{}) interface{} {
-	if _, ok := node.(string); ok {
-		return 1
-	}
-	return node
-}
-
-func isString(node interface{}) bool {
-	_, ok := node.(string)
-	return ok
 }
